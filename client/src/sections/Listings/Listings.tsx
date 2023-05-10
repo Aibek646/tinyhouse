@@ -71,10 +71,23 @@ export const Listings = ({ title }: Props) => {
         return <h2>Uh oh! Something went wrong - please try again later</h2>;
     }
 
+    const deleteListingLoadingMessage = deleteListingLoading ? (
+        <h4>Deletion in progress...</h4>
+    ) : null;
+
+    const deleteListingErrorMessage = deleteListingError ? (
+        <h4>
+            Uh oh! Something went wrong with deleting - please try again later
+            :(
+        </h4>
+    ) : null;
+
     return (
         <div>
             <h2>{title}</h2>
             {listingList}
+            {deleteListingLoadingMessage}
+            {deleteListingErrorMessage}
         </div>
     );
 };
