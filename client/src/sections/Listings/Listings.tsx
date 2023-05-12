@@ -1,10 +1,14 @@
 import { useMutation, useQuery, gql } from "@apollo/client";
+import List from "antd/es/list";
+import Avatar from "antd/es/avatar";
+import Button from "antd/es/button";
 
 import { Listings as ListingsData } from "./__generated__/Listings";
 import {
     DeleteListing as DeleteListingData,
     DeleteListingVariables
 } from "./__generated__/DeleteListing";
+import "./styles/Listings.css";
 
 const LISTINGS = gql`
     query Listings {
@@ -50,18 +54,34 @@ export const Listings = ({ title }: Props) => {
     const listings = data ? data.listings : null;
 
     const listingList = listings ? (
-        <ul>
-            {listings.map((listing) => {
-                return (
-                    <li key={listing.id}>
-                        {listing.title}{" "}
-                        <button onClick={() => handleDeleteListing(listing.id)}>
+        <List
+            itemLayout="horizontal"
+            dataSource={listings}
+            renderItem={(listing) => (
+                <List.Item
+                    actions={[
+                        <Button
+                            type="primary"
+                            onClick={() => handleDeleteListing(listing.id)}
+                        >
                             Delete
-                        </button>
-                    </li>
-                );
-            })}
-        </ul>
+                        </Button>
+                    ]}
+                >
+                    <List.Item.Meta
+                        title={listing.title}
+                        description={listing.address}
+                        avatar={
+                            <Avatar
+                                src={listing.image}
+                                shape="square"
+                                size={48}
+                            />
+                        }
+                    />
+                </List.Item>
+            )}
+        />
     ) : null;
 
     if (loading) {
@@ -84,7 +104,7 @@ export const Listings = ({ title }: Props) => {
     ) : null;
 
     return (
-        <div>
+        <div className="listings">
             <h2>{title}</h2>
             {listingList}
             {deleteListingLoadingMessage}
