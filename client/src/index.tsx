@@ -1,10 +1,12 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "antd/dist/reset.css";
 
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "./styles/index.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { Home, Host, Listings2, Listing, NotFound, User } from "./sections";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const client = new ApolloClient({
     uri: "/api",
@@ -14,6 +16,22 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
+
+const App = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/host" element={<Host />} />
+                <Route path="/listing/:id" element={<Listing />} />
+                <Route path="/listings/:location?" element={<Listings2 />} />
+                <Route path="/user/:id" element={<User />} />
+                <Route element={<NotFound />} />
+            </Routes>
+        </Router>
+    );
+};
+
 root.render(
     <ApolloProvider client={client}>
         <App />
