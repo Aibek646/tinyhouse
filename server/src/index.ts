@@ -1,15 +1,14 @@
 import "dotenv/config";
-
 import express, { Application } from "express";
 import { ApolloServer } from "apollo-server-express";
-import { resolvers, typeDefs } from "./graphql";
 import { connectDatabase } from "./database";
+import { resolvers, typeDefs } from "./graphql";
 
 const mount = async (app: Application) => {
     const db = await connectDatabase();
     const server = new ApolloServer({
-        typeDefs,
         resolvers,
+        typeDefs,
         context: () => ({ db })
     });
     server.start().then(() => {
