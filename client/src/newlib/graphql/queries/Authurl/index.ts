@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-export const LOG_IN = gql`
+export const AUTH_URL = gql`
     query AuthUrl {
         authUrl
     }

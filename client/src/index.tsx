@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
 import "antd/dist/reset.css";
-
 import reportWebVitals from "./reportWebVitals";
 import "./styles/index.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-
+import { Viewer } from "./newlib/types";
 import {
+    AppHeader,
     Home,
     Host,
     Listings2,
@@ -14,23 +14,38 @@ import {
     User,
     Login
 } from "./sections";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
+import { useState } from "react";
 
 const client = new ApolloClient({
     uri: "/api",
     cache: new InMemoryCache()
 });
 
+const initialViewer: Viewer = {
+    id: null,
+    token: null,
+    avatar: null,
+    hasWallet: null,
+    didRequest: false
+};
+
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
 
 const App = () => {
+    const [viewer, setViewer] = useState<Viewer>(initialViewer);
+    console.log(viewer);
+
     return (
         <Router>
             <Layout id="app">
+                <Affix offsetTop={0} className="app_affix-header">
+                    <AppHeader />
+                </Affix>
+
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/host" element={<Host />} />
@@ -39,7 +54,10 @@ const App = () => {
                         path="/listings/:location?"
                         element={<Listings2 />}
                     />
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={<Login setViewer={setViewer} />}
+                    />
                     <Route path="/user/:id" element={<User />} />
                     <Route element={<NotFound />} />
                 </Routes>
