@@ -2,6 +2,7 @@ import { Layout } from "antd";
 import { Link } from "react-router-dom";
 
 import logo from "./assets/tinyhouse-logo.png";
+import { MenuItems } from "./components";
 
 const { Header } = Layout;
 
@@ -11,9 +12,12 @@ export const AppHeader = () => {
             <div className="app-header__logo-search-section">
                 <div className="app-header__logo">
                     <Link to="/">
-                        <img src="" alt="App Logo" />
+                        <img src={logo} alt="App Logo" />
                     </Link>
                 </div>
+            </div>
+            <div className="app-header__menu-section">
+                <MenuItems />
             </div>
         </Header>
     );
