@@ -86,12 +86,12 @@ export const Login = ({ setViewer }: Props) => {
         <Content className="log-in">
             {logInErrorBannerElement}
             <Card className="log-in-card">
-                <div className="log-in-card__intro-title">
+                <div className="log-in-card__intro">
                     <Title level={3} className="log-in-card__intro-title">
                         <span role="img" aria-label="wave"></span>
                     </Title>
                     <Title level={3} className="log-in-card__intro-title">
-                        Log in to TyniHouse
+                        Log in to TinyHouse
                     </Title>
                     <Text>
                         Sign in with Google to start booking available rentals!
