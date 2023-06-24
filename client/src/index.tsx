@@ -107,7 +107,10 @@ const App = () => {
                         path="/login"
                         element={<Login setViewer={setViewer} />}
                     />
-                    <Route path="/user/:id" element={<User />} />
+                    <Route
+                        path="/user/:id"
+                        element={<User viewer={viewer} />}
+                    />
                     <Route element={<NotFound />} />
                 </Routes>
             </Layout>
